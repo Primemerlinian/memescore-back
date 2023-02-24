@@ -3,10 +3,9 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Meme extends Model {
+    
     static associate(models) {
       Meme.belongsTo(models.Profile, { foreignKey: 'profileId' });
-      Meme.hasMany(models.Vote, { foreignKey: 
-        'memeId' });
     }
   }
 
@@ -16,10 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    url: {
+    photo: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+    },
   }, {
     sequelize,
     modelName: 'Meme'

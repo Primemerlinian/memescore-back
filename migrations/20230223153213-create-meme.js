@@ -9,23 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      value: {
-        type: Sequelize.INTEGER,
-        validate: {
-          min: 0,
-          max: 5,
-        },
-      },
       profileId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Profiles',
-          key: 'id',
-        },
-      },
-      voterId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'CASCADE',

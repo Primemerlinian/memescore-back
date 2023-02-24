@@ -9,7 +9,6 @@ const authRouter = require('./routes/auth.js')
 
 const app = express()
 
-const votesRouter = require('./routes/votes.js')
 
 app.use(cors())
 app.use(logger('dev'))
@@ -18,7 +17,6 @@ app.use(formData.parse())
 
 app.use('/api/profiles', profilesRouter)
 app.use('/api/auth', authRouter)
-app.use('/api/votes', votesRouter)
 
 app.use(function (req, res, next) {
   res.status(404).json({ err: 'Not found' })
