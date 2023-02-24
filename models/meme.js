@@ -10,14 +10,21 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Meme.init({
-    id: {
+    profileId: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Profiles',
+        key: 'id',
+      },
     },
     photo: {
       type: DataTypes.STRING,
     },
+    caption: {
+      type: DataTypes.STRING,
+    }
   }, {
     sequelize,
     modelName: 'Meme'
