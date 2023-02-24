@@ -33,10 +33,21 @@ const update = async (req, res) => {
   }
 }
 
+const deleteMeme = async (req, res) => {
+  try {
+    // We can also call destroy on an instance:
+    const meme = await Meme.findByPk(req.params.id)
+    await meme.destroy()
+    res.status(200).json(meme)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
 module.exports = {
   create,
   index,
   update,
+  delete: deleteMeme
 }
 
