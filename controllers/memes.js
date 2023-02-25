@@ -21,12 +21,13 @@ const index = async (req, res) => {
   }
 }
 
-const update = async (req, res) => {
+async function update(req, res) {
   try {
-    const meme = await Meme.update(
-      req.body,
-      { where: { id: req.params.id }, returning: true }
-    )
+    const meme = await Meme.findByPk(req.params.id)
+    if (meme.profileId === req.user.profile.id){
+      meme.set(req.body)
+      await meme.save()
+    }
     res.status(200).json(meme)
   } catch (error) {
     res.status(500).json(error)
@@ -35,19 +36,20 @@ const update = async (req, res) => {
 
 const deleteMeme = async (req, res) => {
   try {
-    // We can also call destroy on an instance:
     const meme = await Meme.findByPk(req.params.id)
+    if (meme.profileId === req.user.profile.id){
     await meme.destroy()
+    }
     res.status(200).json(meme)
   } catch (error) {
     res.status(500).json(error)
   }
 }
 
+
 module.exports = {
   create,
   index,
   update,
-  delete: deleteMeme
+  delete: deleteMeme,
 }
-
