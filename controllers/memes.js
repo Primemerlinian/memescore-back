@@ -33,17 +33,23 @@ const update = async (req, res) => {
   }
 }
 
+
 const deleteMeme = async (req, res) => {
   try {
     const meme = await Meme.findByPk(req.params.id)
-    if (meme.profileId === req.user.profile.id){
-    await meme.destroy()
+    if (!meme) {
+      return res.status(404).json({ message: 'Meme not found' })
     }
+    if (meme.profileId !== req.user.profile.id) {
+      return res.status(403).json({ message: 'Not authorized to delete this meme' })
+    }
+    await meme.destroy()
     res.status(200).json(meme)
   } catch (error) {
     res.status(500).json(error)
   }
 }
+
 
 
 module.exports = {
