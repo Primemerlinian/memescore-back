@@ -20,18 +20,21 @@ const index = async (req, res) => {
 }
 
 
-
 const update = async (req, res) => {
   try {
-    const meme = await Meme.update(
+    const [updatedRowsCount, [updatedMeme]] = await Meme.update(
       req.body,
-      { where: { id: req.params.id }, returning: true }
+      { where: { id: req.params.id, profileId: req.body.profileId }, returning: true }
     )
-    res.status(200).json(meme)
+    if (updatedRowsCount !== 1) {
+      return res.status(403).json({ message: "You are not authorized to edit this meme" })
+    }
+    res.status(200).json(updatedMeme)
   } catch (error) {
     res.status(500).json(error)
   }
 }
+
 
 const deleteMeme = async (req, res) => {
   try {
