@@ -20,19 +20,6 @@ const index = async (req, res) => {
 }
 
 
-
-// const update = async (req, res) => {
-//   try {
-//     const meme = await Meme.update(
-//       req.body,
-//       { where: { id: req.params.id }, returning: true }
-//     )
-//     res.status(200).json(meme)
-//   } catch (error) {
-//     res.status(500).json(error)
-//   }
-// }
-
 const update = async (req, res) => {
   try {
     const [updatedRowsCount, [updatedMeme]] = await Meme.update(
