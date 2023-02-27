@@ -21,8 +21,7 @@ const index = async (req, res) => {
 
 const show = async (req, res) => {
   try {
-    const meme = await Meme.findById(req.params.id)
-      .populate('profileId')
+    const meme = await Meme.findByPk(req.params.id)
     res.status(200).json(meme)
   } catch (error) {
     res.status(500).json(error)
