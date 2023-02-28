@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const memesCtrl = require('../controllers/memes.js')
 const middleware = require('../middleware/auth.js')
+const app = require('../server.js')
 
 const { decodeUserFromToken, checkAuth } = middleware
 

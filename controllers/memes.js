@@ -28,16 +28,17 @@ const show = async (req, res) => {
   }
 }
 
-const update = async (req, res) => {
+
+async function update(req, res) {
   try {
-    const [updatedRowsCount, [updatedMeme]] = await Meme.update(
-      req.body,
-      { where: { id: req.params.id, profileId: req.body.profileId }, returning: true }
-    )
-    if (updatedRowsCount !== 1) {
-      return res.status(403).json({ message: "You are not authorized to edit this meme" })
+    const memeId = req.params.id;
+  console.log('memeId:', memeId);
+    const meme = await Meme.findByPk(req.params.id)
+    if (meme.profileId === req.user.profile.id){
+    meme.set(req.body)
+    await meme.save()
     }
-    res.status(200).json(updatedMeme)
+    res.status(200).json(meme)
   } catch (error) {
     res.status(500).json(error)
   }
