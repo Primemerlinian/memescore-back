@@ -1,34 +1,36 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Meme extends Model {
-    
     static associate(models) {
-      Meme.belongsTo(models.Profile, { foreignKey: 'profileId' });
+      Meme.belongsTo(models.Profile, { foreignKey: "profileId" });
     }
   }
 
-  Meme.init({
-    profileId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      onDelete: 'CASCADE',
-      references: {
-        model: 'Profiles',
-        key: 'id',
+  Meme.init(
+    {
+      profileId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        onDelete: "CASCADE",
+        references: {
+          model: "Profiles",
+          key: "id",
+        },
+      },
+      photo: {
+        type: DataTypes.STRING,
+      },
+      caption: {
+        type: DataTypes.STRING,
       },
     },
-    photo: {
-      type: DataTypes.STRING,
-    },
-    caption: {
-      type: DataTypes.STRING,
+    {
+      sequelize,
+      modelName: "Meme",
     }
-  }, {
-    sequelize,
-    modelName: 'Meme'
-  });
+  );
 
   return Meme;
 };
