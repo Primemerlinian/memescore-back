@@ -31,7 +31,6 @@ const show = async (req, res) => {
 async function update(req, res) {
   try {
     const memeId = req.params.id;
-    console.log("memeId:", memeId);
     const meme = await Meme.findByPk(req.params.id);
     if (meme.profileId === req.user.profile.id) {
       meme.set(req.body);

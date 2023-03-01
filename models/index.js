@@ -25,7 +25,6 @@ if (config.use_env_variable) {
 async function testConnection(params) {
   try {
     await sequelize.authenticate({ logging: false })
-    console.log('Database connection has been established.')
   } catch (error) {
     console.error('There was a problem connecting to the database:', error)
   }
