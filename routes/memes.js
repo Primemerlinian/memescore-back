@@ -8,8 +8,6 @@ const { decodeUserFromToken, checkAuth } = middleware;
 router.use(decodeUserFromToken);
 router.post("/", checkAuth, memesCtrl.create);
 router.get("/", checkAuth, memesCtrl.index);
-router.get("/:id", checkAuth, memesCtrl.show);
 router.put("/:id", checkAuth, memesCtrl.update);
 router.delete("/:id", checkAuth, memesCtrl.delete);
-
 module.exports = router;
